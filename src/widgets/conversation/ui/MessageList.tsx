@@ -65,7 +65,7 @@ export function MessageList({ chat, loading, historyError }: Props) {
                                     <span>{formatDay(message.timestamp)}</span>
                                 </div>
                             )}
-                            <MessageBubble message={message} />
+                            <MessageBubble message={message} showStatus={!chat.isSaved} />
                         </Fragment>
                     ))}
                 </>

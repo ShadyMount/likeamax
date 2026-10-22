@@ -3,7 +3,13 @@ import { formatTime } from '../../../shared/lib'
 import { DeliveryStatus } from './DeliveryStatus'
 import styles from './MessageBubble.module.css'
 
-export function MessageBubble({ message }: { message: Message }) {
+export function MessageBubble({
+    message,
+    showStatus = true,
+}: {
+    message: Message
+    showStatus?: boolean
+}) {
     return (
         <article
             className={`${styles.message} ${message.outgoing ? styles.outgoing : ''}`}
@@ -14,7 +20,7 @@ export function MessageBubble({ message }: { message: Message }) {
                 <time dateTime={new Date(message.timestamp * 1000).toISOString()}>
                     {formatTime(message.timestamp)}
                 </time>
-                {message.outgoing && <DeliveryStatus status={message.status} />}
+                {message.outgoing && showStatus && <DeliveryStatus status={message.status} />}
             </footer>
         </article>
     )

@@ -72,5 +72,47 @@ test('Reducer: изменение статуса не меняет предыд�
     const next = chatReducer(previous, readStatus)
     assert.equal(previous.chats[0].messages[0].status, 'sent')
     assert.equal(next.chats[0].messages[0].status, 'read')
-    assert.deepEqual(initialChatState, { chats: [], statuses: {} })
+    assert.deepEqual(initialChatState, { selfChatId: '', chats: [], statuses: {} })
+})
+
+test('Избранное: название и тип не зависят от имени профиля и обогащения контакта', () => {
+    let state = { ...initialChatState, selfChatId: chatId }
+    state = chatReducer(state, { type: 'chats-loaded', chats: [{ chatId, name: 'Мой профиль' }] })
+    state = chatReducer(state, { type: 'contact-loaded', chatId, contact: { name: 'Другое имя' } })
+    assert.equal(state.chats[0].title, 'Избранное')
+    assert.equal(state.chats[0].isSaved, true)
+})
+
+test('Избранное: ответ отправки, входящее событие и история объединяются в одно исходящее', () => {
+    let state = { ...initialChatState, selfChatId: chatId }
+    state = chatReducer(state, { type: 'chats-loaded', chats: [{ chatId }] })
+    state = chatReducer(state, {
+        ...addMessage,
+        message: { ...message, estimatedTime: true, timestamp: 50 },
+    })
+    state = chatReducer(state, { ...addMessage, message: { ...message, outgoing: false } })
+    state = chatReducer(state, {
+        type: 'history-loaded',
+        chatId,
+        messages: [{ ...message, outgoing: false }],
+    })
+    state = chatReducer(state, readStatus)
+    assert.equal(state.chats[0].messages.length, 1)
+    const saved = state.chats[0].messages[0]
+    assert.equal(saved.outgoing, true)
+    assert.equal(saved.timestamp, 100)
+    assert.equal(saved.status, undefined)
+})
+
+test('Избранное: событие до загрузки списка создаёт чат с правильным названием', () => {
+    const state = chatReducer(
+        { ...initialChatState, selfChatId: chatId },
+        {
+            ...addMessage,
+            message: { ...message, outgoing: false },
+        },
+    )
+    assert.equal(state.chats[0].title, 'Избранное')
+    assert.equal(state.chats[0].isSaved, true)
+    assert.equal(state.chats[0].messages[0].outgoing, true)
 })

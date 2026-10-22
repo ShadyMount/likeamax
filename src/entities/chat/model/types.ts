@@ -10,6 +10,7 @@ export type Message = {
 export type Chat = {
     id: string
     title: string
+    isSaved?: boolean
     phone?: string
     messages: Message[]
     previewLoading?: boolean

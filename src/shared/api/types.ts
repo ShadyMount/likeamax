@@ -37,6 +37,7 @@ export type HistoryMessage = {
 // Описаны только методы, используемые приложением. Ответ выводится из имени метода.
 export type ApiMethods = {
     getStateInstance: { args: []; response: { stateInstance: string } }
+    getAccountSettings: { args: []; response: { chatId: string } }
     getSettings: { args: []; response: { webhookUrl?: string; incomingWebhook?: string } }
     getChats: { args: []; response: RemoteChat[] }
     getContactInfo: { args: [body: { chatId: string }]; response: ContactInfo }

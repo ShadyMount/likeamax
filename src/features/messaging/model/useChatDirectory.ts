@@ -31,6 +31,10 @@ export function useChatDirectory(
                     chat.type === 'bot' ||
                     (chat.type === undefined && !chat.chatId.startsWith('-')),
             )
+            // Пустое «Избранное» может отсутствовать в getChats, но всегда доступно по ID владельца.
+            if (api.selfChatId && !personal.some((chat) => chat.chatId === api.selfChatId)) {
+                personal.push({ chatId: api.selfChatId, type: 'user' })
+            }
             dispatch({ type: 'chats-loaded', chats: personal })
             // Чаты обогащаются последовательно с учётом лимитов API; сбой одного не останавливает остальные.
             for (const chat of personal) {

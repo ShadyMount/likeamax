@@ -16,6 +16,7 @@ export async function mockGreenApi(page) {
         sent: null,
         echoBeforeResponse: false,
         queue: [],
+        selfHistory: [],
     }
     await page.route('https://4100.api.green-api.com/**', async (route) => {
         const request = route.request()
@@ -25,7 +26,8 @@ export async function mockGreenApi(page) {
         if (method === 'getStateInstance') {
             json = { stateInstance: 'authorized' }
             if (api.badToken) status = 401
-        } else if (method === 'getSettings') json = { incomingWebhook: 'yes', webhookUrl: '' }
+        } else if (method === 'getAccountSettings') json = { chatId: 'self' }
+        else if (method === 'getSettings') json = { incomingWebhook: 'yes', webhookUrl: '' }
         else if (method === 'getChats') {
             if (api.failChats) {
                 status = 500
@@ -88,7 +90,9 @@ export async function mockGreenApi(page) {
                               timestamp: 1792500003,
                           },
                       ]
-                    : []
+                    : chatId === 'self'
+                      ? api.selfHistory
+                      : []
         } else if (method === 'checkAccount') {
             api.checks++
             assert.deepEqual(request.postDataJSON(), { phoneNumber: 79991234567 })

@@ -8,8 +8,11 @@ import { checkMessageOrder } from './scenarios/message-order.mjs'
 import { checkBotMessages } from './scenarios/bot-messages.mjs'
 import { checkSearchAndDateSeparators, checkMobileAndLogout } from './scenarios/interface.mjs'
 
+import { checkSavedMessages } from './scenarios/saved-messages.mjs'
+
 // Каждый сценарий получает новую страницу, отдельную сессию и собственную очередь API.
 const scenarios = [
+    { id: 'saved', run: checkSavedMessages },
     { id: 'connection', run: checkConnectionAndHistory },
     { id: 'sending', run: checkChatCreationAndSending },
     { id: 'notifications', run: checkNotificationsAndStatuses },

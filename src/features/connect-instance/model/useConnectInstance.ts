@@ -30,7 +30,8 @@ export function useConnectInstance(onConnect: (api: Api) => void) {
                     'В кабинете GREEN-API очистите Webhook URL и включите получение входящих сообщений. После изменения подождите около минуты.',
                 )
             }
-            onConnect(candidate)
+            const account = await candidate.request('getAccountSettings')
+            onConnect({ ...candidate, selfChatId: account.chatId })
         } catch (error) {
             candidate?.abort()
             setError(errorMessage(error))

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { IoArrowBack } from 'react-icons/io5'
+import { IoArrowBack, IoBookmarkOutline } from 'react-icons/io5'
 import type { Chat } from '../../../entities/chat'
 import { Avatar, uiStyles as ui } from '../../../shared/ui'
 import { MessageList } from './MessageList'
@@ -37,10 +37,16 @@ export function Conversation({
                     >
                         <IoArrowBack />
                     </button>
-                    <Avatar name={chat.title} className={styles.avatar} />
+                    <Avatar
+                        name={chat.title}
+                        className={styles.avatar}
+                        icon={chat.isSaved ? <IoBookmarkOutline /> : undefined}
+                    />
                     <div className={styles.conversationTitle}>
                         <strong>{chat.title}</strong>
-                        <small className={ui.muted}>Личный чат</small>
+                        <small className={ui.muted}>
+                            {chat.isSaved ? 'Сообщения для себя' : 'Личный чат'}
+                        </small>
                     </div>
                 </header>
             )}

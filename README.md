@@ -54,6 +54,8 @@ npx vercel@65.1.0 --global-config .vercel/cli --prod
 - История, черновики и реквизиты находятся только в памяти вкладки. После перезагрузки потребуется снова войти; чаты и последние сообщения будут повторно загружены из GREEN-API. Обработанные уведомления удаляются из очереди GREEN-API.
 - Прямые HTTPS-запросы из браузера к GREEN-API; сервер и база данных не требуются. Токен доступен в памяти браузера и его сетевых запросах.
 
+«Избранное» определяется по `chatId` из [GetAccountSettings](https://green-api.com/telegram/docs/api/account/GetAccountSettings/), а не по имени профиля или `getSettings.wid`. Оно доступно и с пустой историей. Сообщения самому себе приводятся к одному направлению перед дедупликацией; статусы доставки и прочтения для них не показываются.
+
 ## Технологии
 
 React 19.3.1, TypeScript 6.0.3, Vite 8.3.5. Точные зависимости закреплены в `package-lock.json`. TypeScript 6 выбран из-за поддержки в `typescript-eslint`: версия 7 пока не входит в поддерживаемый диапазон. Для состояния используются хуки React, для API — встроенный `fetch`, для оформления — CSS Modules.
@@ -153,7 +155,7 @@ npm run test:browser -- notifications
 npm run test:browser -- mobile search
 ```
 
-Доступные сценарии: `connection`, `sending`, `notifications`, `drafts`, `message-order`, `bots`, `search`, `mobile`.
+Доступные сценарии: `connection`, `sending`, `notifications`, `drafts`, `message-order`, `bots`, `search`, `mobile`, `saved`.
 
 Модульные тесты в `tests/unit/` проверяют порядок и дедупликацию сообщений, серверное время, приоритет статусов, гонки истории с уведомлениями и преобразование ответов API. Они запускаются встроенным `node:test`; для загрузки reducer с импортами проекта используется Vite без HTTP-сервера.
 

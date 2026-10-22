@@ -1,7 +1,16 @@
+import type { ReactNode } from 'react'
 import styles from './Avatar.module.css'
 const colors = ['#c76363', '#be8651', '#729957', '#538fb4', '#8c79c6', '#bd6892']
 
-export function Avatar({ name, className = '' }: { name: string; className?: string }) {
+export function Avatar({
+    name,
+    className = '',
+    icon,
+}: {
+    name: string
+    className?: string
+    icon?: ReactNode
+}) {
     const hash = Array.from(name).reduce(
         (result, character) => result + character.codePointAt(0)!,
         0,
@@ -19,7 +28,7 @@ export function Avatar({ name, className = '' }: { name: string; className?: str
             style={{ backgroundColor: colors[hash % colors.length] }}
             aria-hidden="true"
         >
-            {initials}
+            {icon ?? initials}
         </span>
     )
 }

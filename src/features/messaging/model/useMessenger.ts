@@ -9,7 +9,10 @@ import { useMessageComposer } from './useMessageComposer'
 import { useMessageNotifications } from './useMessageNotifications'
 
 export function useMessenger(api: Api) {
-    const [state, dispatch] = useReducer(chatReducer, initialChatState)
+    const [state, dispatch] = useReducer(chatReducer, {
+        ...initialChatState,
+        selfChatId: api.selfChatId,
+    })
     const [activeId, setActiveId] = useState('')
     const active = state.chats.find((chat) => chat.id === activeId)
 

@@ -59,7 +59,7 @@ export function createApi(credentials: Credentials) {
         return data as ApiMethods[M]['response']
     }
 
-    return { request, signal: controller.signal, abort: () => controller.abort() }
+    return { selfChatId: '', request, signal: controller.signal, abort: () => controller.abort() }
 }
 
 export type Api = ReturnType<typeof createApi>
