@@ -1,8 +1,9 @@
 // Подготовка через интерфейс: тест не подменяет состояние React и не вызывает другие сценарии.
-export async function connectInstance(page, origin) {
+export async function connectInstance(page, origin, remember = false) {
     await page.goto(origin)
     await page.getByLabel('ID инстанса').fill('4100000000')
     await page.getByLabel('Токен инстанса').fill('test-token')
+    if (remember) await page.getByRole('checkbox', { name: 'Запомнить меня' }).check()
     await page.getByRole('button', { name: 'Подключиться' }).click()
     await page.getByRole('button', { name: 'Выйти' }).waitFor()
     await page

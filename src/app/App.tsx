@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import type { Api } from '../shared/api'
-import { ConnectForm } from '../features/connect-instance'
+import { ConnectForm, forgetInstance } from '../features/connect-instance'
 import { MessengerPage } from '../pages/messenger'
 
 export function App() {
     const [api, setApi] = useState<Api | null>(null)
 
     function disconnect() {
+        forgetInstance()
         api?.abort()
         setApi(null)
     }

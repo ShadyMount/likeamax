@@ -61,6 +61,21 @@ export function ConnectForm({ onConnect }: { onConnect: (api: Api) => void }) {
                     . Инстанс должен быть авторизован, входящие уведомления включены, Webhook URL
                     пуст.
                 </p>
+                <div>
+                    <label className={styles.remember}>
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            aria-describedby="remember-warning"
+                            disabled={busy}
+                        />
+                        Запомнить меня
+                    </label>
+                    <p id="remember-warning" className={styles.hint}>
+                        Небезопасно: токен сохраняется в этом браузере и доступен JavaScript-коду
+                        сайта. Не включайте на чужом или общем устройстве.
+                    </p>
+                </div>
                 {error && (
                     <p className={ui.error} role="alert">
                         {error}
@@ -70,7 +85,8 @@ export function ConnectForm({ onConnect }: { onConnect: (api: Api) => void }) {
                     {busy ? 'Подключение…' : 'Подключиться'}
                 </button>
                 <p className={styles.footnote}>
-                    Реквизиты и переписка хранятся только до закрытия или перезагрузки страницы.
+                    Без галочки реквизиты хранятся только до перезагрузки. Переписка и черновики не
+                    сохраняются.
                 </p>
             </form>
         </main>
