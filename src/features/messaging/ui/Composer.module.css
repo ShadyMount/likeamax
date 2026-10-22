@@ -1,0 +1,33 @@
+.composer {
+    display: flex;
+    width: min(100%, 720px);
+    margin: 6px auto 0;
+    gap: 8px;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+.composer textarea {
+    resize: none;
+    border: 0;
+    border-radius: 18px;
+    background: var(--surface);
+    min-height: 54px;
+    max-height: 160px;
+    line-height: 24px;
+    padding: 15px 18px;
+    overflow-y: auto;
+    font-size: 16px;
+}
+.sendButton {
+    font-size: 22px;
+}
+
+@media (max-width: 700px) {
+    .composer {
+        padding: 4px 8px max(8px, env(safe-area-inset-bottom));
+        margin: 0;
+    }
+    .composer textarea {
+        border-radius: 20px;
+    }
+}

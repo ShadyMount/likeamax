@@ -1,0 +1,131 @@
+.conversation {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.conversationHeader {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(100%, 720px);
+    min-height: 64px;
+    padding: 8px 16px;
+    margin: 0 auto;
+    border-radius: 24px;
+    background: var(--surface);
+}
+.conversationHeader .avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
+}
+.conversationTitle {
+    min-width: 0;
+}
+.conversationTitle strong {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 600;
+}
+.conversationTitle small {
+    font-size: 14px;
+    margin-top: 3px;
+}
+.backButton {
+    display: none;
+}
+.chatError {
+    margin: 12px auto 0;
+    width: min(100%, 720px);
+}
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding: 16px max(12px, calc((100% - 720px) / 2));
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    scrollbar-gutter: stable;
+}
+.messagesSpacer {
+    flex: 1;
+}
+.messages > :not(.messagesSpacer) {
+    flex-shrink: 0;
+}
+.emptyState {
+    margin: auto;
+    text-align: center;
+    color: var(--muted);
+}
+.emptyState > svg {
+    font-size: 58px;
+    color: #a192df;
+    margin-bottom: 20px;
+}
+.emptyState h1 {
+    color: #eee;
+    font-size: 22px;
+    font-weight: 500;
+}
+.emptyState p {
+    margin-top: 10px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+.conversationEmpty {
+    align-self: center;
+    color: #ddd;
+    background: #303039;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+.dateDivider {
+    text-align: center;
+    padding: 10px 0 8px;
+}
+.dateDivider span {
+    display: inline-block;
+    background: #2b263a;
+    color: #f0eafc;
+    border-radius: 16px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+@media (max-width: 700px) {
+    .conversation {
+        height: 100%;
+        border-radius: 0;
+    }
+    .conversationHeader {
+        border-radius: 0;
+        min-height: 64px;
+        gap: 10px;
+        padding: 8px 12px;
+    }
+    .conversationHeader .avatar {
+        width: 40px;
+        height: 40px;
+    }
+    .backButton {
+        display: grid;
+        width: 36px;
+        height: 40px;
+        color: #eee;
+    }
+    .messages {
+        padding: 12px;
+    }
+    .chatError {
+        width: calc(100% - 24px);
+    }
+}

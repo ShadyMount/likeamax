@@ -1,0 +1,18 @@
+.deliveryStatus {
+    display: inline-flex;
+    align-items: center;
+    color: var(--delivery-status-color, inherit);
+    vertical-align: middle;
+}
+.deliveryStatus svg {
+    width: 18px;
+    height: 18px;
+}
+.deliveryStatus.failed,
+.deliveryStatus.noAccount {
+    color: var(--delivery-status-color, #ffaca5);
+}
+/* Строка списка задаёт цвет статуса через переменную, не обращаясь к внутренним классам. */
+.deliveryStatus.read {
+    color: var(--delivery-status-color, var(--read-status-color, inherit));
+}

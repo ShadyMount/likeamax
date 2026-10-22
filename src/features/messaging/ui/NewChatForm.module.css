@@ -1,0 +1,26 @@
+.newChat {
+    display: grid;
+    gap: 10px;
+    padding: 4px 16px 18px;
+}
+.newChatHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.newChatHeading .closeButton {
+    width: 32px;
+    height: 32px;
+}
+.phoneRow {
+    display: flex;
+    gap: 8px;
+}
+.phoneRow input {
+    min-width: 0;
+    font-size: 14px;
+}
+.phoneRow .submitButton {
+    padding: 10px;
+    font-size: 14px;
+}

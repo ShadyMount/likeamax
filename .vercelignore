@@ -1,0 +1,9 @@
+.local/
+.npm-cache/
+.vercel/
+node_modules/
+dist/
+tests/
+design-qa.md
+.env*
+*.local

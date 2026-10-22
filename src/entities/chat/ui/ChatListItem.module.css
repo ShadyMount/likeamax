@@ -1,0 +1,64 @@
+.chatItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    border-radius: 14px;
+    width: 100%;
+    min-height: 74px;
+    background: transparent;
+    padding: 9px;
+    text-align: left;
+}
+.chatItem:hover {
+    background: var(--surface-hover);
+}
+.chatItem.selected {
+    background: var(--accent);
+}
+.chatSummary {
+    flex: 1;
+    min-width: 0;
+}
+.chatTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+.chatTitleRow strong {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+.chatMeta {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+.chatSummary strong,
+.chatSummary small {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+}
+.chatSummary small {
+    margin-top: 5px;
+    font-size: 15px;
+    line-height: 21px;
+}
+.chatItem.selected small,
+.chatItem.selected .chatMeta {
+    color: #fff;
+}
+.chatMeta {
+    --read-status-color: #b7a6ff;
+}
+.selected .chatMeta {
+    --delivery-status-color: #fff;
+}

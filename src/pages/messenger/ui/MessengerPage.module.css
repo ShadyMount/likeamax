@@ -1,0 +1,29 @@
+.chatLayout {
+    height: 100dvh;
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    padding: 16px;
+    gap: 24px;
+}
+
+@media (max-width: 1000px) and (min-width: 701px) {
+    .chatLayout {
+        grid-template-columns: 320px minmax(0, 1fr);
+        gap: 16px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .chatLayout {
+        display: block;
+        padding: 0;
+    }
+    .chatLayout .conversation,
+    .chatLayout.hasActiveChat .sidebar {
+        display: none;
+    }
+    .chatLayout.hasActiveChat .conversation {
+        display: flex;
+    }
+}
