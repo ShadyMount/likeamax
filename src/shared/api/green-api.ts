@@ -41,6 +41,9 @@ export function createApi(credentials: Credentials) {
             // Общий сигнал завершает сессию, таймаут ограничивает только текущий запрос.
             signal: AbortSignal.any([controller.signal, AbortSignal.timeout(20_000)]),
             credentials: 'omit',
+            cache: 'no-store',
+            redirect: 'error',
+            referrerPolicy: 'no-referrer',
         })
         if (!response.ok) {
             const explanation =
@@ -50,7 +53,13 @@ export function createApi(credentials: Credentials) {
             throw new Error(`Ошибка GREEN-API (${response.status}). ${explanation}`)
         }
         const text = await response.text()
-        const data = text ? JSON.parse(text) : null
+        let data
+        try {
+            data = text ? JSON.parse(text) : null
+        } catch {
+            // Сообщение SyntaxError может содержать фрагмент ответа сервера, включая реквизиты.
+            throw new Error('GREEN-API вернул некорректный ответ. Повторите попытку.')
+        }
         if (data?.status === 'error' || data?.status === false) {
             throw new Error(
                 'GREEN-API отклонил запрос. Проверьте авторизацию, настройки и ограничения инстанса.',

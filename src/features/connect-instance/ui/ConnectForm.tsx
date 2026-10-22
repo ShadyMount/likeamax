@@ -69,7 +69,7 @@ export function ConnectForm({ onConnect }: { onConnect: (api: Api) => void }) {
                             aria-describedby="remember-warning"
                             disabled={busy}
                         />
-                        Запомнить меня
+                        Запомнить меня на 24 часа
                     </label>
                     <p id="remember-warning" className={styles.hint}>
                         Небезопасно: токен сохраняется в этом браузере и доступен JavaScript-коду

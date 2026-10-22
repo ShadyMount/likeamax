@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 export async function mockGreenApi(page) {
     const api = {
         badToken: false,
+        invalidJson: false,
         missingAccount: false,
         failSend: false,
         failDelete: false,
@@ -21,6 +22,14 @@ export async function mockGreenApi(page) {
     await page.route('https://4100.api.green-api.com/**', async (route) => {
         const request = route.request()
         const method = new URL(request.url()).pathname.split('/')[2]
+        if (api.invalidJson && method === 'getStateInstance') {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: 'test-token: invalid JSON',
+            })
+            return
+        }
         let json = null
         let status = 200
         if (method === 'getStateInstance') {

@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Api } from '../shared/api'
-import { ConnectForm, forgetInstance } from '../features/connect-instance'
+import {
+    ConnectForm,
+    forgetInstance,
+    scheduleRememberedInstanceExpiry,
+} from '../features/connect-instance'
 import { MessengerPage } from '../pages/messenger'
 
 export function App() {
     const [api, setApi] = useState<Api | null>(null)
+
+    useEffect(() => scheduleRememberedInstanceExpiry(), [api])
 
     function disconnect() {
         forgetInstance()

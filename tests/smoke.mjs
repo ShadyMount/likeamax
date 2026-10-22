@@ -9,10 +9,12 @@ import { checkBotMessages } from './scenarios/bot-messages.mjs'
 import { checkSearchAndDateSeparators, checkMobileAndLogout } from './scenarios/interface.mjs'
 
 import { checkRememberInstance } from './scenarios/remember-instance.mjs'
+import { checkSecurityPolicy } from './scenarios/security.mjs'
 import { checkSavedMessages } from './scenarios/saved-messages.mjs'
 
 // Каждый сценарий получает новую страницу, отдельную сессию и собственную очередь API.
 const scenarios = [
+    { id: 'security', run: checkSecurityPolicy },
     { id: 'remember', run: checkRememberInstance },
     { id: 'saved', run: checkSavedMessages },
     { id: 'connection', run: checkConnectionAndHistory },
@@ -39,7 +41,15 @@ const selected = requested.length
 const origin = 'http://127.0.0.1:5174'
 const server = spawn(
     process.execPath,
-    ['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', '5174', '--strictPort'],
+    [
+        'node_modules/vite/bin/vite.js',
+        'preview',
+        '--host',
+        '127.0.0.1',
+        '--port',
+        '5174',
+        '--strictPort',
+    ],
     { stdio: 'pipe' },
 )
 let browser
